@@ -3,115 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="main.css">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="menu_link"> 
-            <div>
-                <img class="image_header_logo" src="img/logotype.svg" alt="Logo">
-            </div>
-            
-            <div class="hamburger">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
-
-            <nav class="nav-bar">
-                <ul>
-                    <li><a class="nav__menu-link underline-effect" href="#home">Home</a></li>                       
-                    <li><a class="nav__menu-link underline-effect" href="#product">Product</a></li>
-                    <li><a class="nav__menu-link underline-effect" href="#pricing">Pricing</a></li>
-                    <li><a class="nav__menu-link underline-effect" href="#about">About</a></li>
-                    <li><a class="nav__menu-link underline-effect" href="#contact">Contact</a></li>
-                </ul>   
-            </nav>
-        </div>
-
-        <div>
-            <h1>The best products start with Figma</h1>
-            <h4>Most calendars are designed for teams. Slate is designed for freelancers</h4>
-
-            <button  type="submit">
-                <div>
-                    <span>Try for free</span>
+    <section class="blok_testimonials_top" id="testimonials">
+        <div class="testimonials_blok_position">
+            <h2 class="hh2_testimonials_text">Here's What My Clients Say:
+                <hr class="hhrr_line_size">
+            </h2>
+    
+    
+    
+            <div class="testimonials_container">
+               
+                <div class="testimonials_wrapper">
+                    <i id="left" class="fa-solid fa-angle-left">+</i>
+                    <ul class="carousel">
+                      <li class="card">
+                        <p class="pp_cont_element_test">I would like to express my gratitude to Kate Sun for an informative and comprehensive consultation. Earlier, I'd turned to astrologers and I can say that I always had questions, many things were not clear, consultations were always limited to a clear framework and time. But, Kate gave me as much time as needed to fully analyze my chart and found answers to all my questions.</p>
+                        <h3 class="hh3_cont_element_test">Jennifer Preston</h3>
+                      </li>
+                      <li class="card">
+                        <p class="pp_cont_element_test">This was the first time in my life when a professional astrologer calculated my natal chart. And this is a totally positive experience. Kate was able to help me prioritize and uncover what I thought was “beyond seven seals”. Thanks for the professional work and positive approach. Now I see what are my strengths and weaknesses and where is my life path leading me to.</p>
+                        <h3 class="hh3_cont_element_test">Greta Gordons</h3>
+                      </li>
+    
+                      <li class="card">
+                        <p class="pp_cont_element_test">I am very grateful for the consultation. It became clear who I am and what it is better to devote my life to. I had many questions that took shape over many years, but I couldn’t find the answers to them myself, I had a lot of guesses, and after the consultation, thanks to astrology, I got the feeling that it all came together for me, it became clear what ... where ... and why.</p>
+                        <h3 class="hh3_cont_element_test">Anie Hoobs</h3>
+                      </li>
+    
+                      <li class="card">
+                        <p class="pp_cont_element_test">I'd always been interested in stars. I didn’t just love horoscopes, I wanted to learn how to understand the stars and their influence on people. Since September I have been studying at the Beginners course by astrologer Kate Sun. I have already learned how to draw up natal charts, I have done it for myself, for my husband, for all my friends, and I will continue to do astrology professionally.</p>
+                        <h3 class="hh3_cont_element_test">Kate Caddy</h3>
+                      </li>
+                      
+                    </ul>
+    
+                    <div class="slider__dots">
+                        <div class="slider__dots-item"></div>
+                        <div class="slider__dots-item"></div>
+                        <div class="slider__dots-item"></div>
+                    </div>
+                    
+                    <i id="right" class="fa-solid fa-angle-right">-</i>
+    
+    
+                   
+                    
                 </div>
-            </button>
-        </div>
-    </header>
-
-    <main>
-
-        <section class="services" id="services">
-            <div class="container">
-              <div class="services__container">
-                <h2>Services We Provide<span>.</span></h2>
-                <p>In addition to language courses, we also offer related services.</p>
-              </div>
-          
-              <!-- Додавання стрілочок для навігації -->
-              <div class="services__slider">
-                <button class="services__arrow services__arrow--left">&larr;</button>
-                <div class="services__container-elements">
-                  <article class="services__container-white">
-                    <div class="services__image-container--one">
-                      <img class="services__image" src="img/services-we-provide/services-image1.svg" alt="services-image1">
-                    </div>
-                    <h3>Translation & Interpreting</h3>
-                    <p>LinguaNow offers full translation and interpreting services in five languages, both online and offline in Berlin. Our translators are certified.</p>
-                    <a href="single-service.html">Learn More</a>
-                  </article>
-          
-                  <article class="services__container-white">
-                    <div class="services__image-container--two">
-                      <img class="services__image" src="img/services-we-provide/services-image2.svg" alt="services-image2">
-                    </div>
-                    <h3>Language Courses</h3>
-                    <p>Our language courses are available in five languages. We offer both group and individual lessons, tailored to your needs.</p>
-                    <a href="single-service.html">Learn More</a>
-                  </article>
-          
-                  <article class="services__container-white">
-                    <div class="services__image-container--three">
-                      <img class="services__image" src="img/services-we-provide/services-image3.svg" alt="services-image3">
-                    </div>
-                    <h3>Corporate Training</h3>
-                    <p>We offer corporate training services for businesses looking to improve their employees' language skills in a professional context.</p>
-                    <a href="single-service.html">Learn More</a>
-                  </article>
-          
-                  <!-- Додаткові картки -->
-                  <article class="services__container-white">
-                    <div class="services__image-container--four">
-                      <img class="services__image" src="img/services-we-provide/services-image4.svg" alt="services-image4">
-                    </div>
-                    <h3>Cultural Workshops</h3>
-                    <p>Our cultural workshops provide an immersive experience into the cultures of the languages we teach.</p>
-                    <a href="single-service.html">Learn More</a>
-                  </article>
-          
-                  <article class="services__container-white">
-                    <div class="services__image-container--five">
-                      <img class="services__image" src="img/services-we-provide/services-image5.svg" alt="services-image5">
-                    </div>
-                    <h3>Study Abroad</h3>
-                    <p>We offer assistance with study abroad programs, helping you find the right school and navigate the application process.</p>
-                    <a href="single-service.html">Learn More</a>
-                  </article>
-                </div>
-                <button class="services__arrow services__arrow--right">&rarr;</button>
-              </div>
+    
             </div>
-          </section>
-
-
-       </main>
-    <footer>
-        <!-- Add footer content here -->
-    </footer>
-
-    <script src="main.js"></script>
+    
+    
+    
+    
+        </div>
+    </section>
+    <script src="script.js"></script>
 </body>
 </html>
