@@ -1,5 +1,5 @@
-const carousel = document.querySelector('.product-animated-carousel');
-const carouselInner = carousel.querySelector('.product-animated-carousel__inner');
+const carousel = document.querySelector('.services__animated-carousel');
+const carouselInner = carousel.querySelector('.services__container-elements');
 const prevButton = carousel.querySelector('.product-animated-carousel__button--prev');
 const nextButton = carousel.querySelector('.product-animated-carousel__button--next');
 
