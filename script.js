@@ -1,157 +1,81 @@
-const cardsContainer = document.getElementById('cards-container');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
-const currentEl = document.getElementById('current');
-const showBtn = document.getElementById('show');
-const hideBtn = document.getElementById('hide');
-const questionEl = document.getElementById('question');
-const answerEl = document.getElementById('answer');
-const addCardBtn = document.getElementById('add-card');
-const clearBtn = document.getElementById('clear');
-const addContainer = document.getElementById('add-container');
+const carousel = document.querySelector('.product-animated-carousel');
+const carouselInner = carousel.querySelector('.product-animated-carousel__inner');
+const prevButton = carousel.querySelector('.product-animated-carousel__button--prev');
+const nextButton = carousel.querySelector('.product-animated-carousel__button--next');
 
-// Keep track of current card
-let currentActiveCard = 0;
+let slidesPerView = getSlidesPerView();
+let slides = Array.from(carouselInner.children);
+let currentIndex = slidesPerView;
 
-// Store DOM cards
-const cardsEl = [];
+setupCarousel();
 
-// Store card data
-const cardsData = getCardsData();
-
-// const cardsData = [
-//   {
-//     question: 'What must a variable begin with?',
-//     answer: 'A letter, $ or _'
-//   },
-//   {
-//     question: 'What is a variable?',
-//     answer: 'Container for a piece of data'
-//   },
-//   {
-//     question: 'Example of Case Sensitive Variable',
-//     answer: 'thisIsAVariable'
-//   }
-// ];
-
-// Create all cards
-function createCards() {
-  cardsData.forEach((data, index) => createCard(data, index));
+function getSlidesPerView() {
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 768) return 2;
+    return 1;
 }
 
-// Create a single card in DOM
-function createCard(data, index) {
-  const card = document.createElement('div');
-  card.classList.add('card');
+function setupCarousel() {
+    // Remove clones if they exist
+    
+    slides = slides.filter(slide => !slide.classList.contains('clone'));
 
-  if (index === 0) {
-    card.classList.add('active');
-  }
+    // Add clones at start and end for infinite looping
+    const clonesStart = slides.slice(-slidesPerView).map(cloneSlide);
+    const clonesEnd = slides.slice(0, slidesPerView).map(cloneSlide);
 
-  card.innerHTML = `
-  <div class="inner-card">
-  <div class="inner-card-front">
-    <p>
-      ${data.question}
-    </p>
-  </div>
-  <div class="inner-card-back">
-    <p>
-      ${data.answer}
-    </p>
-  </div>
-</div>
-  `;
+    // Add all slides to the carousel
+    carouselInner.append(...clonesStart, ...slides, ...clonesEnd);
 
-  card.addEventListener('click', () => card.classList.toggle('show-answer'));
+    // Update slides
+    slides = Array.from(carouselInner.children);
 
-  // Add to DOM cards
-  cardsEl.push(card);
-
-  cardsContainer.appendChild(card);
-
-  updateCurrentText();
+    updateCarousel();
 }
 
-// Show number of cards
-function updateCurrentText() {
-  currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
+function cloneSlide(slide) {
+    const clone = slide.cloneNode(true);
+    clone.classList.add('clone');
+    return clone;
 }
 
-// Get cards from local storage
-function getCardsData() {
-  const cards = JSON.parse(localStorage.getItem('cards'));
-  return cards === null ? [] : cards;
+function updateCarousel() {
+    carouselInner.style.transform = `translateX(-${currentIndex * 100 / slidesPerView}%)`;
 }
-
-// Add card to local storage
-function setCardsData(cards) {
-  localStorage.setItem('cards', JSON.stringify(cards));
-  window.location.reload();
-}
-
-createCards();
 
 // Event listeners
-
-// Next button
-nextBtn.addEventListener('click', () => {
-  cardsEl[currentActiveCard].className = 'card left';
-
-  currentActiveCard = currentActiveCard + 1;
-
-  if (currentActiveCard > cardsEl.length - 1) {
-    currentActiveCard = cardsEl.length - 1;
-  }
-
-  cardsEl[currentActiveCard].className = 'card active';
-
-  updateCurrentText();
+prevButton.addEventListener('click', () => {
+    if (--currentIndex < 0) {
+        currentIndex = slides.length - slidesPerView * 2 - 1;
+        carouselInner.style.transition = 'none';
+        updateCarousel();
+        // Allow transition to complete, then reset transition style
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                carouselInner.style.transition = '';
+            });
+        });
+    }
+    updateCarousel();
 });
 
-// Prev button
-prevBtn.addEventListener('click', () => {
-  cardsEl[currentActiveCard].className = 'card right';
-
-  currentActiveCard = currentActiveCard - 1;
-
-  if (currentActiveCard < 0) {
-    currentActiveCard = 0;
-  }
-
-  cardsEl[currentActiveCard].className = 'card active';
-
-  updateCurrentText();
+nextButton.addEventListener('click', () => {
+    carouselInner.style.transition = ''; // Ensure transition is not 'none'
+    if (++currentIndex >= slides.length - slidesPerView) {
+        currentIndex = slidesPerView;
+        carouselInner.style.transition = 'none';
+        updateCarousel();
+        // Allow transition to complete, then reset transition style
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                carouselInner.style.transition = '';
+            });
+        });
+    }
+    updateCarousel();
 });
 
-// Show add container
-showBtn.addEventListener('click', () => addContainer.classList.add('show'));
-// Hide add container
-hideBtn.addEventListener('click', () => addContainer.classList.remove('show'));
-
-// Add new card
-addCardBtn.addEventListener('click', () => {
-  const question = questionEl.value;
-  const answer = answerEl.value;
-
-  if (question.trim() && answer.trim()) {
-    const newCard = { question, answer };
-
-    createCard(newCard);
-
-    questionEl.value = '';
-    answerEl.value = '';
-
-    addContainer.classList.remove('show');
-
-    cardsData.push(newCard);
-    setCardsData(cardsData);
-  }
-});
-
-// Clear cards button
-clearBtn.addEventListener('click', () => {
-  localStorage.clear();
-  cardsContainer.innerHTML = '';
-  window.location.reload();
+window.addEventListener('resize', () => {
+    slidesPerView = getSlidesPerView();
+    setupCarousel();
 });
